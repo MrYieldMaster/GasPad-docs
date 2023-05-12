@@ -1,0 +1,90 @@
+---
+sidebar_position: 4
+---
+
+# 🆕 Testnet
+
+import ProjectValue from '@site/src/components/ProjectValue';
+import Highlighter from '@site/src/components/Highlighter';
+
+This document outlines the steps to join an existing testnet.
+
+## Pick a Testnet
+
+You specify the network you want to join by setting the **genesis file** and **seeds**. If you need more information about past networks, check our [testnets repo](https://github.com/BUTANE-Smart-Chain).
+
+| Testnet Chain ID | Description                       | Site                                                                       | Version                                                                                  | Status  |
+| ---------------- | --------------------------------- | -------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ------- |
+| `butane_9000-4`   | butane_9000-4 Testnet              | [butane 9000-4](https://github.com/BUTANE-Smart-Chain) | [<Highlighter keyword="testnet_version" />](https://github.com/BUTANE-Smart-Chain) | `Live`  |
+| `butane_9000-3`   | butane_9000-3 Testnet              | [butane 9000-3](https://github.com/BUTANE-Smart-Chain) | [`v1.0.0-beta1`](https://github.com/BUTANE-Smart-Chain)             | `Stale` |
+| `butane_9000-2`   | Olympus Mons Incentivized Testnet | [Olympus Mons](https://github.com/BUTANE-Smart-Chain)                                    | `Stale` |
+| `butane_9000-1`   | Arsia Mons Testnet                | [Arsia Mons](https://github.com/BUTANE-Smart-Chain)     | [`v0.1.x`](https://github.com/BUTANE-Smart-Chain)                                    | `Stale` |
+
+## Install `butaned`
+
+Follow the [installation](./../protocol/butane-cli/single-node) document to install the <ProjectValue keyword='name' /> binary <Highlighter keyword="binary" />.
+
+:::warning
+Make sure you have the right version of <Highlighter keyword="binary" /> installed.
+:::
+
+### Save Chain ID
+
+We recommend saving the testnet `chain-id` into your <Highlighter keyword="binary" />'s
+`client.toml`. This will make it so you do not have to manually pass in the `chain-id` flag for every CLI command.
+
+:::tip
+See the Official [Chain IDs](./../protocol/concepts/chain-id#official-chain-ids) for reference.
+:::
+
+```bash
+butaned config chain-id butane_9000-4
+```
+
+## Initialize Node
+
+We need to initialize the node to create all the necessary validator and node configuration files:
+
+```bash
+butaned init <your_custom_moniker> --chain-id butane_9000-4
+```
+
+:::danger
+Monikers can contain only ASCII characters. Using Unicode characters will render your node unreachable.
+:::
+
+By default, the `init` command creates your `~/.butaned` (i.e `$HOME`) directory with subfolders `config/` and `data/`.
+In the `config` directory, the most important files for configuration are `app.toml` and `config.toml`.
+
+## Genesis & Seeds
+
+### Copy the Genesis File
+
+
+
+Then verify the correctness of the genesis configuration file:
+
+```bash
+butaned validate-genesis
+```
+
+### Add Seed Nodes
+
+Your node needs to know how to find [peers](https://docs.tendermint.com/v0.34/tendermint-core/using-tendermint.html#peers). You'll need to add healthy [seed nodes](https://docs.tendermint.com/v0.34/tendermint-core/using-tendermint.html#seed)
+ to `$HOME/.butaned/config/config.toml`. The [`testnets`](https://testnet-rpc.bbcscan.io) repo contains links to
+  some seed nodes.
+
+Edit the file located in `~/.butaned/config/config.toml` and the `seeds` to the following:
+
+```toml
+#######################################################
+###           P2P Configuration Options             ###
+#######################################################
+[p2p]
+
+# ...
+
+# Comma separated list of seed nodes to connect to
+seeds = "<node-id>@<ip>:<p2p port>"
+```
+
