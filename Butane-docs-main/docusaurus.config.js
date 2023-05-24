@@ -134,7 +134,7 @@ const config = {
         title: 'GasPad Docs',
         logo: {
           href: '/',
-          alt: 'Flamez Logo',
+          alt: 'GasPad Logo',
           src: 'img/gicon.png',
         },
         items: [
@@ -162,7 +162,7 @@ const config = {
           {
             position: 'right',
             label: 'Pad',
-            to: 'https://butane.tech/',
+            to: 'https://gaspad.io/',
           },
         ],
       },
@@ -177,7 +177,7 @@ const config = {
                 to: '/develop/smart-contracts',
               },
               {
-                label: 'GasPas Trending',
+                label: 'GasPad Trending',
                 to: '/use',
               },
               {
@@ -256,7 +256,7 @@ const config = {
         // Public API key: it is safe to commit it
         apiKey: 'fbbcf85b58f500e5e4d301f9730f3526',
   
-        indexName: 'Butanedocs',
+        indexName: 'GasPad Docs',
   
         contextualSearch: true,
         searchParameters: {},
